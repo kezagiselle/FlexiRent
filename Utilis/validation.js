@@ -5,12 +5,13 @@ import { body} from "express-validator";
 //     body("FirstName", "FirstName is required"),
 //     body("Address", "Address is required"),
 // ];
-const signUpValidation = [
-    body("firstName", "First name is required").not().isEmpty(),
-    body("lastName", "Last name is required").not().isEmpty(),
-    body("email", "Email is required").not().isEmpty(),
+const SignUpValidation = [
+    body("firstName", "first name is required").not().isEmpty(),
+    body("lastName", "last name is required").not().isEmpty(),
+    body("address", "Address is required").not().isEmpty(),
+    body("contact", "Contact is required").not().isEmpty(),
     body("email", "invalid email").isEmail(),
-    body("password", "password is required").not().isEmpty(),
+    body("password", "Password is required").not().isEmpty()
 ];
 const SignInValidation = [
     body("email", "Email is required").not().isEmpty(),
@@ -30,7 +31,7 @@ const resetPasswordValidation = [
 ];
 
 const allValidation = {
-    signUpValidation,
+    SignUpValidation,
     SignInValidation,
     otpValidation,
     forgotPasswordValidation,

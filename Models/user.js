@@ -1,19 +1,19 @@
 import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema({
-    FirstName: {
+    firstName: {
         type: String,
         required: true
     },
-    LastName: {
+    lastName: {
         type: String,
         required: true
     },
-    Address: {
+    address: {
         type: String,
         required: true
     },
-    Contact: {
+    contact: {
         type: String,
         required: true,
         unique: true
@@ -23,12 +23,17 @@ const userSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    role: {
+        type: String,
+        required: true
+    },
     password: {
         type: String,
         required: true
     },
+   
     otp: {
-        type: String,
+        type: Number,
         required: true
     },
     otpExpires: {

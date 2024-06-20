@@ -1,0 +1,559 @@
+{
+    "swagger": "2.0",
+    "securityDefinitions": {
+        "Bearer": {
+          "type": "apiKey",
+          "name": "Authorization",
+          "in": "header",
+          "description": "Enter your bearer token in the format **Bearer <token>**"
+        }
+      },
+      "security": [{ "Bearer": [] }],
+    "info": {
+        "title": "FlexiRent-API",
+        "description": "API documentation for FlexiRent",
+        "version": "1.0.0"
+    },
+    "host": "localhost:7000",
+    "basePath": "",
+    "schemes": [
+        "http",
+        "https"
+    ],
+    "paths": {
+        "/api/FlexiRent/users/SignUp": {
+            "post": {
+                "summary": "Create an account",
+                "description": "To find more first sign Up",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "signUp object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": " user created"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/users/SignIn": {
+            "post": {
+                "summary": "Login into your account",
+                "description": "first login",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "signIn object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": " user logged in"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/users/verify": {
+            "post": {
+                "summary": "verify your otp",
+                "description": "verify your account",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "verify object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account verified"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/users/forgotPassword": {
+            "post": {
+                "summary": "incase you forgot your password",
+                "description": "if you forgot your password",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "forgotPassword object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account click on forgotPassword"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/users/resetPassword": {
+            "post": {
+                "summary": "reset your password",
+                "description": "set another password incase you forgot your password",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "verify object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Account reset"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/users/delete/{id}": {
+            "delete": {
+                "summary": "Delete a user by ID",
+                "description": "Delete a user by ID",
+                "tags": [
+                    "Users"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the user to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "user deleted"
+                    },
+                    "404": {
+                        "description": "user not found"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/assets/addAsset": {
+            "post": {
+                "summary": "Create a new asset",
+                "description": "add an asset",
+                "tags": [
+                    "Assets"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "Image",
+                       "type":"file",
+                        "required": true,
+                        "description": "Asset object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "location",
+                       "type":"string",
+                        "required": true,
+                        "description": "Asset object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "Address",
+                       "type":"string",
+                        "required": true,
+                        "description": "Asset object"
+                    },
+                    {
+                        "in": "formData",
+                        "name": "Category",
+                       "type":"string",
+                        "required": true,
+                        "description": "Asset object"
+                    }
+
+                ],
+                "responses": {
+                    "201": {
+                        "description": " Asset created"
+                    },
+                    "401":{
+                        "description":"Bad request -Validation error"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/assets/getAll": {
+            "get": {
+                "summary": "Find all assets",
+                "description": "Find all assets",
+                "tags": [
+                    "Assets"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "Asset not found"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/assets/findById/{id}": {
+            "get": {
+                "summary": "get asset by ID",
+                "description": "get a single asset by ID",
+                "tags": [
+                    "Assets"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the asset to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "single asset got it!"
+                    },
+                    "404": {
+                        "description": "asset not found"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/assets/findByCategory/{category}": {
+            "get": {
+                "summary": "get asset by category",
+                "description": "get a single asset by category",
+                "tags": [
+                    "Assets"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "category of the asset to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "single asset got it!"
+                    },
+                    "404": {
+                        "description": "asset not found"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/assets/update/{id}": {
+            "put": {
+                "summary": "update Asset",
+                "description": "updating the assets",
+                "tags": [
+                    "Assets"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the asset to update",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "Updated assets object"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful retrieved"
+                    },
+                    "404": {
+                        "description": "asset not found"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/assets/delete/{id}": {
+            "delete": {
+                "summary": "Delete asset by ID",
+                "description": "Delete asset by ID",
+                "tags": [
+                    "Assets"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the asset to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Asset deleted"
+                    },
+                    "404": {
+                        "description": "Asset not found"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/tokens/addToken": {
+            "post": {
+                "summary": "Create a new token",
+                "description": "Create a token to your account",
+                "tags": [
+                    "Tokens"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions"
+                        },
+                        "required": true,
+                        "description": "token object"
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "token created"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/tokens/findByUser/{token}": {
+            "get": {
+                "summary": "get token by User",
+                "description": "get a single token by User",
+                "tags": [
+                    "Tokens"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "token of the user to get",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "single token got it!"
+                    },
+                    "404": {
+                        "description": "token not found"
+                    }
+                }
+            }
+        },
+        "/api/FlexiRent/tokens/delete/{id}": {
+            "delete": {
+                "summary": "Delete token by ID",
+                "description": "Delete token by ID",
+                "tags": [
+                    "Tokens"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID of the token to delete",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Token deleted"
+                    },
+                    "404": {
+                        "description": "Token not found"
+                    }
+                }
+            }
+        }
+    },
+        
+  "definitions": {
+    "components": {
+        "securitySchemes": {
+          "bearerAuth": {
+            "type": "http",
+            "scheme": "bearer",
+            "bearerFormat": "JWT"
+          }
+        },
+        "schemas": {
+          "user": {
+            "firstName": {
+                "type": "String",
+                "required":true
+            },
+            "lastName": {
+                "type": "String",
+                "required": true
+            },
+            "address": {
+                "type": "String",
+                "required": true
+            },
+            "contact": {
+                "type": "String",
+                "required": true,
+                "unique": true
+            },
+            "email": {
+                "type": "String",
+                "required": true,
+                "unique": true
+            },
+            "role": {
+                "type": "String",
+                "required": true
+            },
+            "password": {
+                "type": "String",
+                "required": true
+            },
+           
+            "otp": {
+                "type": "Number",
+                "required": true
+            },
+            "otpExpires": {
+                "type": "Date",
+                "required": false
+            },
+            "verified": {
+                "type": "String",
+                "required": true,
+                "default": false
+            }
+            },
+            "required": [
+                "firstName",
+                "lastName",
+                "address",
+                "contact",
+                "email",
+                "role",
+                "password",
+                "otp",
+                "otpExpires",
+                "verified"
+            ]
+        },
+        "Assets": {
+            "type": "object",
+            "properties": {
+            "image": {
+                "url":{
+                 "type": "String"
+                }
+             },
+            "location": {
+                "type": "String",
+                "required": true
+            },
+            "address": {
+                "type": "String",
+                "required": true
+            },
+            "category": {
+                "type": "String",
+                "required": true
+            }
+            },
+            "required": [
+                "image",
+                "location",
+                "address",
+                "category"
+            ]
+        },
+        "Tokens": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "String",
+                    "required": true
+                },
+                "user": {
+                    "type": "Schema.Types.ObjectId",
+                    "ref": "user",
+                    "required": true
+                },
+                "expirationDate": {
+                    "type": "Date",
+                    "required": true
+                }
+            },
+            "required": [
+                "token",
+                "user",
+                "expirationDate"
+            ]
+            }
+        }
+    }
+}
+
+
+            
+        
+        

@@ -4,7 +4,11 @@ import express from 'express';
 import cors from "cors";
 import cookieParser from 'cookie-parser';
 import connectDB from './DB/connectDB.js';
-import { Router } from 'express';
+// import express, { Router } from 'express';
+import Router from './Routers/index.js';
+import swaggerUi from 'swagger-ui-express';
+import swagger from './docs/swagger.json' assert {type: "json"}
+
 
 const corsOptions ={
     allowedHeaders: ["Authorization", "Content-Type" ],
@@ -19,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use('/api/FlexiRent', Router);
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swagger));
 
 const start = async () => {
     try{

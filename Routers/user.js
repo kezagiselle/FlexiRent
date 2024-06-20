@@ -1,9 +1,9 @@
 import express from "express";
 const userRouter = express.Router();
-import userControllers from "../controllers/user";
+import userControllers from "../controllers/user.js";
 import allValidation from "../Utilis/validation.js"
 
-userRouter.post('/SignUp',allValidation.signUpValidation,userControllers.SignUp);
+userRouter.post('/SignUp',allValidation.SignUpValidation,userControllers.SignUp);
 userRouter.post('/SignIn',allValidation.SignInValidation,userControllers.SignIn);
 userRouter.post('/validateOtp',allValidation.otpValidation,userControllers.validateOtp);
 userRouter.post('/forgotPassword',allValidation.forgotPasswordValidation,userControllers.forgotPassword);

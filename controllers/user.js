@@ -1,50 +1,54 @@
-import userModel from "../Models/user";
-import NotFoundError from "../Errors/NotFoundError";
-import BadRequestError from "../Errors/BadRequestError";
+import userModel from "../Models/user.js";
+import NotFoundError from "../Errors/NotFoundError.js";
+import BadRequestError from "../Errors/BadRequestError.js";
 import { validationResult } from "express-validator";
-import asyncWrapper from "../middleware/async";
-import jwt, { TokenExpiredError } from "jsonwebtoken";
+import asyncWrapper from "../middleware/async.js";
+import jwt from "jsonwebtoken";
 import Token from "../Models/authToken.js";
 import dotenv from "dotenv";
 dotenv.config()
 import bcrypt from 'bcrypt';
-import UnauthorizedError from "../Errors/UnAuthorisedError";
-import otpGenerator from "../Utilis/otp";
+import UnauthorizedError from "../Errors/UnAuthorisedError.js";
+import otpGenerator from "../Utilis/otp.js";
+import sendEmail from "../Utilis/sendEmail.js";
 
-const SignUp = asyncWrapper(async (req,res,next) => {
+const SignUp = asyncWrapper(async (req, res, next) => {
+    //validation
     const errors = validationResult(req);
-    if(!errors.isEmpty()) {
+    if (!errors.isEmpty()) {
         return next(new BadRequestError(errors.array()[0].msg));
     };
-
-    const foundUser = await userModel.findOne({email: req.body.email});
-    if(foundUser){
-        return next(new BadRequestError("Email is already in use"));
+    //checking if  the user is already in using the email
+    const foundUser = await userModel.findOne({ email: req.body.email });
+    if (foundUser) {
+        return next(new BadRequestError("Email already in use"));
     };
     //hashing the password
     const hashedPassword = await bcrypt.hashSync(req.body.password, 10);
-   //Generate the OTP
-   const otp = otpGenerator();
-   const otpExpirationDate = new Date().getTime() + (60 * 1000 * 5)
-   //recording the user to the databse
-   const newUser = new userModel({
-    FirstName: req.body.FirstName,
-    LastName: req.body.LastName,
-    Address: req.body.Address,
-    Contact: req.body.Contact,
-    email: req.body.email,
-    password: hashedPassword,
-    otp: otp,
-    otpExpires: otpExpirationDate
-   });
-   const savedUser = await newUser.save();
-   sendEmail(req.body.email, "Verify your account", `Your otp is ${otp}`);
-   if(savedUser) {
-    return res.status(201).json({
-        message: "user account created!",
-        user: savedUser
+    //Generate the otp
+    const otp = otpGenerator();
+    const otpExpirationDate = new Date().getTime() + (60 * 1000 * 5)
+    //Recording the user to the database
+    const newUser = new userModel({
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+        address: req.body.address,
+        contact: req.body.contact,
+        email: req.body.email,
+        role: req.body.role,
+        password: hashedPassword,
+        otp: otp,
+        otpExpires: otpExpirationDate,
     });
-   }
+
+    const savedUser = await newUser.save();
+    sendEmail(req.body.email, "Verify your account", `Your otp is ${otp}`);
+    if (savedUser) {
+        return res.status(201).json({
+            message: "user account created!",
+            user: savedUser
+        });
+    }
 });
 const validateOtp = asyncWrapper(async (req,res,next) => {
     //validate
@@ -109,7 +113,7 @@ const forgotPassword = asyncWrapper(async(req,res,next) => {
         return next(new BadRequestError("Your email is not registered"));
     };
     //generate token
-    const token = jwt.sign({id: foundUser.id}, process.env,JWT_SECRET, {expiresIn: "3h"});
+    const token = jwt.sign({id: foundUser.id}, process.env.JWT_SECRET, {expiresIn: "3h"});
 
     //Recording the token to the database
     await Token.create({
@@ -139,8 +143,8 @@ const resetPassword = asyncWrapper(async(req,res,next) => {
         return next(new BadRequestError("Invalid or expired token."));
     }
     //update user's password
-    foundUser.password = password;
-    await foundUser.save();
+    foundToken.password = password;
+    await foundToken.save();
 
     //delete the token from the database
     await Token.deleteOne({token});

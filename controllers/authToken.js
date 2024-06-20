@@ -1,7 +1,7 @@
 import TokenModel from "../Models/authToken.js";
-import BadRequestError from "../Errors/BadRequestError";
+import BadRequestError from "../Errors/BadRequestError.js";
 import { validationResult } from "express-validator";
-import asyncWrapper from "../middleware/async";
+import asyncWrapper from "../middleware/async.js";
 
 const addToken = asyncWrapper(async (req,res,next) => {
     const errors = validationResult(req);
