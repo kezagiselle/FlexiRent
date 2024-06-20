@@ -24,11 +24,11 @@ const assetSchema = new mongoose.Schema({
         required: true
     },
     available_from: {
-        type: String,
+        type: Date,
         required: true
     },
     available_to: {
-        type: String,
+        type: Date,
         required: true
     } 
 }, {

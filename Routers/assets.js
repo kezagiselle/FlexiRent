@@ -3,7 +3,7 @@ const assetRouter = express.Router();
 import assetControllers from "../controllers/asset.js";
 import allValidation from '../Utilis/validation.js';
 
-assetRouter.post('//addAsset',assetControllers.addAsset);
+assetRouter.post('/addAsset',assetControllers.addAsset);
 assetRouter.get('/getAll', assetControllers.getAllAssets);
 assetRouter.get('/findById',assetControllers.findById);
 assetRouter.put('/update/:id',assetControllers.updateAsset);

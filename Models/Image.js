@@ -7,15 +7,16 @@ const imageSchema = new mongoose.Schema({
         ref: "asset",
         required: true
     },
-    image: {
-        url: {
-            type: String,
-        }
-    },
+ image:{ 
+        filename: String, 
+        path: String, 
+        mimetype: String, 
+        size: Number 
+      },
     uploaded_at:{
         type: Date,
         required: true
     }
 });
-const imageModel = mongoose.model('image', imageSchema);
-export default imageModel;
+const ImageModel = mongoose.model('image', imageSchema);
+export default ImageModel;
