@@ -6,7 +6,7 @@ import { upload } from '../middleware/multer.js'
 
 imageRouter.post('/upload',upload.single('image'),imageControllers.addImage);
 imageRouter.get('/getAll', imageControllers.getAllImages);
-imageRouter.get('/findById',imageControllers.findById);
+imageRouter.get('/findById/:id',imageControllers.findById);
 imageRouter.put('/update/:id',imageControllers.updateImage);
 imageRouter.delete('/delete/:id',imageControllers.deleteImage);
 

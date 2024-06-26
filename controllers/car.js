@@ -1,4 +1,4 @@
-import CarModel from "../Models/car";
+import CarModel from "../Models/car.js";
 import NotFoundError from "../Errors/NotFoundError.js";
 import BadRequestError from "../Errors/BadRequestError.js";
 import { validationResult } from "express-validator";
@@ -13,7 +13,7 @@ const addCar = asyncWrapper(async (req,res,next) =>{
     return res.status(201).json(newCar);
 });
 
-const getAllCar = asyncWrapper(async(req,res,next) =>{
+const getAllCars = asyncWrapper(async(req,res,next) =>{
     const cars = await CarModel.find({});
     if(cars){
         return res.status(201).json({
@@ -50,7 +50,7 @@ const deleteCar = asyncWrapper(async (req,res,next) => {
 });
 const carControllers = {
     addCar,
-    getAllCar,
+    getAllCars,
     findById,
     updateCar,
     deleteCar

@@ -16,7 +16,7 @@ const houseSchema = new mongoose.Schema({
         required: true
     },
     square_footage: {
-        type: Number,
+        type: String,
         required: true
     },
     amenities: {

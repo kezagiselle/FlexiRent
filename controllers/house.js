@@ -13,7 +13,7 @@ const addHouse = asyncWrapper(async (req,res,next) =>{
     return res.status(201).json(newCar);
 });
 
-const getAllHouse = asyncWrapper(async(req,res,next) =>{
+const getAllHouses = asyncWrapper(async(req,res,next) =>{
     const houses = await houseModel.find({});
     if(houses){
         return res.status(201).json({
@@ -50,7 +50,7 @@ const deleteHouse = asyncWrapper(async (req,res,next) => {
 });
 const houseControllers = {
     addHouse,
-    getAllHouse,
+    getAllHouses,
     findById,
     updateHouse,
     deleteHouse

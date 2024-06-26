@@ -36,7 +36,7 @@ const addImage = asyncWrapper(async (req, res, next) => {
     }
   });
 const getAllImages = asyncWrapper(async (req, res, next) => {
-  const images = await imageModel.find({});
+  const images = await ImageModel.find({});
   if (images) {
     return res.status(201).json({
       nbHits: images.length,
@@ -46,7 +46,7 @@ const getAllImages = asyncWrapper(async (req, res, next) => {
 });
 const findById = asyncWrapper(async (req, res, next) => {
   const imageId = req.params.id;
-  const foundImage = await imageModel.findById(imageId);
+  const foundImage = await ImageModel.findById(imageId);
   if (!foundImage) {
     return next(new NotFoundError("Image not found"));
   }
@@ -56,7 +56,7 @@ const updateImage = asyncWrapper(async (req, res, next) => {
   const imageId = req.params.id;
   const updates = req.body;
 
-  const updatedImage = await imageModel.findByIdAndUpdate(imageId, updates, {
+  const updatedImage = await ImageModel.findByIdAndUpdate(imageId, updates, {
     new: true,
   });
   if (!updatedImage) {
@@ -66,7 +66,7 @@ const updateImage = asyncWrapper(async (req, res, next) => {
 });
 const deleteImage = asyncWrapper(async (req, res, next) => {
   const imageId = req.params.id;
-  const deletedImage = await imageModel.findByIdAndDelete(imageId);
+  const deletedImage = await ImageModel.findByIdAndDelete(imageId);
   if (!deletedImage) {
     return next(new NotFoundError("Image not found"));
   }
