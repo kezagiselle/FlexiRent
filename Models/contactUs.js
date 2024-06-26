@@ -11,10 +11,15 @@ const contactSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    Contact: {
+        type: String,
+        required: true,
+        unique: true
+    },
     Message: {
         type: String,
         required: true,
     }
 });
-const contactModel = mongoose.model('contact', contactSchema);
+const contactModel = mongoose.model('Info', contactSchema);
 export default contactModel;
