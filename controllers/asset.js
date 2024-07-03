@@ -58,6 +58,14 @@ const deleteAsset = asyncWrapper(async (req,res,next) =>{
     }
     return res.status(200).json({ message: 'Asset deleted successfully'});
 });
+const markAssetAsBought = asyncWrapper(async(req,res) =>{
+    const assetId = req.params.id;
+    const updatedAsset = await assetModel.findByIdAndUpdate(assetId, {isBought: true}, {new: true});
+    if(!updatedAsset){
+        return next(new NotFoundError('Asset not found'));
+    }
+    return res.status(200).json(updatedAsset);
+});
 
 const assetControllers = {
     getAllAssets,
@@ -65,6 +73,7 @@ const assetControllers = {
     // findByCategory,
     updateAsset,
     deleteAsset,
-    addAsset
+    addAsset,
+    markAssetAsBought
 }
 export default assetControllers;

@@ -10,6 +10,7 @@ import swaggerUi from 'swagger-ui-express';
 import swagger from './docs/swagger.json' assert {type: "json"}
 import path from 'path';
 import { fileURLToPath } from 'url';
+import stripe from 'stripe';
 
 const corsOptions ={
     allowedHeaders: ["Authorization", "Content-Type" ],
@@ -25,6 +26,9 @@ app.use(express.json());
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
+
+// const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY)
+
 
 app.use('/api/FlexiRent', Router);
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swagger));

@@ -173,53 +173,31 @@
             }
         },
         "/api/FlexiRent/assets/addAsset": {
-            "post": {
-                "summary": "Create a new asset",
-                "description": "add an asset",
-                "tags": [
-                    "Assets"
-                ],
-                "parameters": [
-                    {
-                        "in": "formData",
-                        "name": "Image",
-                       "type":"file",
-                        "required": true,
-                        "description": "Asset object"
-                    },
-                    {
-                        "in": "formData",
-                        "name": "location",
-                       "type":"string",
-                        "required": true,
-                        "description": "Asset object"
-                    },
-                    {
-                        "in": "formData",
-                        "name": "Address",
-                       "type":"string",
-                        "required": true,
-                        "description": "Asset object"
-                    },
-                    {
-                        "in": "formData",
-                        "name": "Category",
-                       "type":"string",
-                        "required": true,
-                        "description": "Asset object"
-                    }
 
-                ],
-                "responses": {
-                    "201": {
-                        "description": " Asset created"
-                    },
-                    "401":{
-                        "description":"Bad request -Validation error"
+        "post": {
+                        "summary": "Create a new asset",
+                        "description": "Create a asset to your account",
+                        "tags": [
+                            "Assets"
+                        ],
+                        "parameters": [
+                            {
+                                "in": "body",
+                                "name": "body",
+                                "schema": {
+                                    "$ref": "#/definitions"
+                                },
+                                "required": true,
+                                "description": "asset object"
+                            }
+                        ],
+                        "responses": {
+                            "201": {
+                                "description": "asset created"
+                            }
+                        }
                     }
-                }
-            }
-        },
+                },
         "/api/FlexiRent/assets/getAll": {
             "get": {
                 "summary": "Find all assets",
@@ -263,32 +241,7 @@
                 }
             }
         },
-        "/api/FlexiRent/assets/findByCategory/{category}": {
-            "get": {
-                "summary": "get asset by category",
-                "description": "get a single asset by category",
-                "tags": [
-                    "Assets"
-                ],
-                "parameters": [
-                    {
-                        "name": "id",
-                        "in": "path",
-                        "description": "category of the asset to get",
-                        "required": true,
-                        "type": "string"
-                    }
-                ],
-                "responses": {
-                    "204": {
-                        "description": "single asset got it!"
-                    },
-                    "404": {
-                        "description": "asset not found"
-                    }
-                }
-            }
-        },
+        
         "/api/FlexiRent/assets/update/{id}": {
             "put": {
                 "summary": "update Asset",
